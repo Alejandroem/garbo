@@ -23,8 +23,10 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {   
-        dd($request->usuario);
-        dd('hola');
-        return view('home');
+        if($request->has('usuario')&&$request->has('empresa')){
+            
+        }
+        
+        return view('welcome');
     }
 }

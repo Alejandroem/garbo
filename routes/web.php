@@ -20,4 +20,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/peticion','HomeController@index')->name('home');
 
+Route::resource('/peticiones',"PeticionesController");
+
 
