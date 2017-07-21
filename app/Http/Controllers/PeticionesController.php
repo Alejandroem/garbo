@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Peticiones;
+use App\Models\TipoPeticiones;
+use App\Models\Peticiones;
+use App\Models\CamposPeticion;
+use App\Models\Seguridad;
+use App\Models\MovimientoMaestro;
+use App\Models\MovimientoTipo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-
 class PeticionesController extends Controller
 {
     /**
@@ -12,9 +17,69 @@ class PeticionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        return redirect()->route('peticion.create',
+                                 ['usuario'=>$request->usuario,
+                                  'empresa'=>$request->empresa
+                                 ]);
+    }
+
+    /**
+     * Return the autocomplete bodegas values
+     *
+     * @return array
+     */
+    public function numeroAutoComplete (Request $request)
+    {
+        $term = $request->term;
+
+        $numeros = MovimientoMaestro::where('Empresa',$request->empresa)//$request->empresa
+            ->where('Tipo',15)
+            ->where('Numero','Like','%'.$term.'%')
+            ->pluck('Numero');
+        for ($i = 0; $i < count($numeros); $i++)
+        {
+            $numeros[$i]="".$numeros[$i];
+        }
+        return response()->json($numeros)->withCallback($request->input('callback'));
+    }
+
+    /**
+     * Return the autocomplete bodegas values
+     *
+     * @return array
+     */
+    public function searchMovimiento (Request $request)
+    {
+        $this->validate($request,[
+            'numero' => 'required',
+            'bodega' => 'required',
+            'empresa'=>'required'
+        ]);
+
+        $movimiento = MovimientoMaestro::where('Empresa',$request->empresa)
+            ->where('Bodega',$request->bodega)
+            ->where('Numero',$request->numero)
+            ->where('Tipo',15)
+            ->get()
+            ->toArray()[0];
+        $movimiento["Fecha"] = Carbon::parse($movimiento["Fecha"])->format('d/m/Y');
+        $movimiento["Tipo"] = MovimientoTipo::find(15)->Descripcion;
+        return response()->json($movimiento)
+            ->withCallback($request->input('callback'));
+    }
+
+
+    public function dataTable (Request $request)
+    {
+
+        $peticiones = Peticiones::all();
+
+        return response()->json($peticiones)
+            ->withCallback($request->input('callback'));
+
     }
 
     /**
@@ -22,9 +87,27 @@ class PeticionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $empresa = $request->empresa;
+        $usuario = $request->usuario;
+        $bodegas = Seguridad::where('Usuario',$request->usuario)
+            ->where('Empresa',$empresa)
+            ->where('Tipo',3)
+            ->pluck('Llave');
+
+        for ($i = 0; $i < count($bodegas); $i++)
+        {
+            $bodegas[$i] = substr($bodegas[$i],1);
+        }
+        $peticiones = Peticiones::where('idUsuario',$usuario)->get();
+
+        $tiposPeticiones = TipoPeticiones::whereIn('id',$peticiones->pluck('idTipoPeticion'))->get();
+        
+        session()->flash('create','active');
+        return view('peticiones.index')->with(compact('bodegas','empresa','usuario','peticiones','tiposPeticiones'));
+
     }
 
     /**
@@ -36,6 +119,64 @@ class PeticionesController extends Controller
     public function store(Request $request)
     {
         //
+
+
+        $this->validate($request,[
+            'nuevafecha'=>'required',
+            'codigo'=>'required',
+            'idUsuario'=>'required',
+            'empresa'=>'required'
+        ]);
+
+        $movimiento = MovimientoMaestro::where('Empresa',$request->empresa)
+            ->where('Numero',$request->codigo)
+            ->where('Tipo',15)
+            ->first();
+        $tipoPeticion = TipoPeticiones::firstOrCreate([
+            'nombre'=> 'Cambio de fecha entrada de inventario' 
+        ]);
+
+        $peticion = Peticiones::create([
+            'idTipoPeticion'=>$tipoPeticion->id,
+            'idUsuario'=>$request->idUsuario,
+            'Codigo'=>$request->codigo,
+            'Empresa'=>$request->empresa,
+            'fechaCreacion'=>Carbon::now(),
+            'estado'=>0,
+        ]);
+        CamposPeticion::create([
+            'idPeticion'=>$peticion->id,
+            'tabla'=>'MOVIMIENTO MAESTRO',
+            'campo'=>'Fecha',
+            'tipo'=>'datetime',
+            'valorAnterior'=>$movimiento->Fecha,
+            'valorNuevo'=>$request->nuevafecha
+        ]);
+        session()->flash('message','Peticion creada con exito');
+        session()->flash('creat','active');
+        return redirect()->route('peticion.create',
+                                 ['usuario'=>$request->idUsuario,
+                                  'empresa'=>$request->empresa
+                                 ]);
+
+        /*$bodegas = Seguridad::where('Usuario',$request->usuario)
+            ->where('Empresa',$request->empresa)
+            ->where('Tipo',3)
+            ->pluck('Llave');
+
+        for ($i = 0; $i < count($bodegas); $i++)
+        {
+            $bodegas[$i] = substr($bodegas[$i],1);
+        }
+
+
+        return view('peticiones.index',
+                    ['usuario'=>$request->usuario,
+                     'empresa'=>$request->empresa])
+            ->with([
+                'bodegas'=>$bodegas,
+                'flash'=>'Peticion creada con exito'
+            ]);*/
     }
 
     /**
@@ -44,9 +185,10 @@ class PeticionesController extends Controller
      * @param  \App\Peticiones  $peticiones
      * @return \Illuminate\Http\Response
      */
-    public function show(Peticiones $peticiones)
+    public function show(Peticion $peticiones)
     {
         //
+
     }
 
     /**
@@ -55,7 +197,7 @@ class PeticionesController extends Controller
      * @param  \App\Peticiones  $peticiones
      * @return \Illuminate\Http\Response
      */
-    public function edit(Peticiones $peticiones)
+    public function edit(Peticion $peticiones)
     {
         //
     }
@@ -67,7 +209,7 @@ class PeticionesController extends Controller
      * @param  \App\Peticiones  $peticiones
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Peticiones $peticiones)
+    public function update(Request $request, Peticion $peticiones)
     {
         //
     }
@@ -78,7 +220,7 @@ class PeticionesController extends Controller
      * @param  \App\Peticiones  $peticiones
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Peticiones $peticiones)
+    public function destroy(Peticion $peticiones)
     {
         //
     }
