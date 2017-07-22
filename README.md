@@ -4,6 +4,7 @@
 
 - [node.js & npm](https://nodejs.org/)
 - [laravel](http://laravel.com/)
+- [php>=5.6.4](http://php.net/)
 
 ## Installation
 
