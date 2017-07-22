@@ -15,7 +15,8 @@
         <link href="{{ asset('css/all.css') }}" rel="stylesheet">
         <script src="https://use.fontawesome.com/9879a64c41.js"></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
     </head>
     <body>
 
@@ -67,6 +68,8 @@
                 });
             });
         </script>
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
         @yield('scripts')
     </body>
 </html>

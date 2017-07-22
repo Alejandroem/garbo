@@ -15,12 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/peticion','HomeController@index')->name('peticion');
 
-Route::resource('/peticion',"PeticionesController");
 Route::get('/peticion/numero/autocomplete','PeticionesController@numeroAutoComplete');
 Route::post('/peticion/search/movimiento','PeticionesController@searchMovimiento');
 Route::get('/peticion/data/table','PeticionesController@dataTable');
+Route::resource('/peticion','PeticionesController');

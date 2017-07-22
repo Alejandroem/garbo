@@ -23,7 +23,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="input-group date datetimepicker">
-                                    <input name="nuevafecha" id="nuevafecha" type='text' class="form-control" />
+                                    <input id="desde" name="desde"  type='text' class="form-control" />
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="input-group date datetimepicker ">
-                                    <input name="nuevafecha" id="nuevafecha" type='text' class="form-control" />
+                                    <input id="hasta" name="hasta"  type='text' class="form-control" />
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -46,7 +46,8 @@
                             </div>
                             <div class="col-md-7">
 
-                                <select id="bodega" name="bodega" class="form-control">
+                                <select id="tipos" name="tipos" class="form-control">
+                                    <option></option>
                                     @foreach($tiposPeticiones as $tipo)
                                     <option>{{$tipo->nombre}}</option>
                                     @endforeach
@@ -54,7 +55,12 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-
+                            <label>Solo pendientes: </label>
+                            <style>
+                                .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+                                .toggle.ios .toggle-handle { border-radius: 20px; }
+                            </style>
+                            <input id="pendientes" type="checkbox" data-toggle="toggle" data-style="ios">
                         </div>
 
                     </div>
@@ -70,13 +76,16 @@
                             </tr>
                         </thead>
                         @foreach($peticiones as $peticion)
-                        <tr>
+                        <tr data-id="{{$peticion->id}}">
                             <td> {{$peticion->id}}</td>
                             <td> {{Carbon\Carbon::parse($peticion->fechaCreacion)->format('d/m/Y')}}</td>
                             <td> {{$peticion->tipo->nombre}}</td>
                             <td> {{$peticion->strEstado()}}</td>
-                            <td></td>
+                            <td>
+                                <a href="" class="button-delete btn btn-danger btn-xs" data-token="{{ csrf_token() }}" data-id="{{$peticion->id}}"><i class='glyphicon glyphicon-trash'></i></a>
+                            </td>
                         </tr>
+                        @include('peticiones.modal')
                         @endforeach
 
                         <tbody>
@@ -101,6 +110,8 @@
     @endif
 
 </div>
+
+
 
 
 

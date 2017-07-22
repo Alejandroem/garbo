@@ -11,7 +11,8 @@ elixir(function(mix){
         "metisMenu.min.css",
         "sb-admin-2.css",
         "bootstrap-datetimepicker.css",
-        "datatables.min.css"
+        "datatables.min.css",
+        "sweetalert2.min.css"
     ],"public/css/all.css");
 
     mix.scripts([
@@ -22,6 +23,8 @@ elixir(function(mix){
         "sb-admin-2.js",
         "moment.js",
         "bootstrap-datetimepicker.js",
-        "datatables.min.js"
+        "datatables.min.js",
+        "sweetalert2.min.js",
+        "peticiones.js"
     ],"public/js/all.js");
 });

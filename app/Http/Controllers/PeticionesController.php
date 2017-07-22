@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TipoPeticiones;
 use App\Models\Peticiones;
+use App\Models\TipoPeticiones;
 use App\Models\CamposPeticion;
 use App\Models\Seguridad;
 use App\Models\MovimientoMaestro;
 use App\Models\MovimientoTipo;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+
+
 class PeticionesController extends Controller
 {
     /**
@@ -104,7 +107,7 @@ class PeticionesController extends Controller
         $peticiones = Peticiones::where('idUsuario',$usuario)->get();
 
         $tiposPeticiones = TipoPeticiones::whereIn('id',$peticiones->pluck('idTipoPeticion'))->get();
-        
+
         session()->flash('create','active');
         return view('peticiones.index')->with(compact('bodegas','empresa','usuario','peticiones','tiposPeticiones'));
 
@@ -182,10 +185,10 @@ class PeticionesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Peticiones  $peticiones
+     * @param  \App\Model\Peticiones  $peticiones
      * @return \Illuminate\Http\Response
      */
-    public function show(Peticion $peticiones)
+    public function show(Peticiones $peticiones)
     {
         //
 
@@ -197,7 +200,7 @@ class PeticionesController extends Controller
      * @param  \App\Peticiones  $peticiones
      * @return \Illuminate\Http\Response
      */
-    public function edit(Peticion $peticiones)
+    public function edit(Peticiones $peticiones)
     {
         //
     }
@@ -209,9 +212,13 @@ class PeticionesController extends Controller
      * @param  \App\Peticiones  $peticiones
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Peticion $peticiones)
+    public function update(Request $request, Peticiones $peticion)
     {
         //
+
+        $peticion->campos->first()->valornuevo = $request->nuevafecha;
+        $peticion->campos->first()->save();
+        
     }
 
     /**
@@ -220,8 +227,13 @@ class PeticionesController extends Controller
      * @param  \App\Peticiones  $peticiones
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Peticion $peticiones)
+    public function destroy(Peticiones $peticion)
     {
         //
+        //dd($peticion);
+        $peticion->campos()->delete();
+        $peticion->delete();
+        return back();
+
     }
 }

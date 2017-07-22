@@ -52,4 +52,9 @@ class Peticiones extends Model
 
 
     }
+    
+     public function campos()
+    {
+        return $this->hasMany(CamposPeticion::class,'idPeticion');
+    }
 }
