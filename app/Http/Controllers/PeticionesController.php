@@ -23,10 +23,12 @@ class PeticionesController extends Controller
     public function index(Request $request)
     {
         //
-        return redirect()->route('peticion.create',
-                                 ['usuario'=>$request->usuario,
-                                  'empresa'=>$request->empresa
-                                 ]);
+        if($request->has('usuario')&&$request->has('empresa')){
+            $usuario = $request->usuario;
+            $empresa = $request->empresa;
+            return view('welcome')->with(compact('usuario','empresa'));
+        }
+
     }
 
     /**
@@ -218,7 +220,7 @@ class PeticionesController extends Controller
 
         $peticion->campos->first()->valornuevo = $request->nuevafecha;
         $peticion->campos->first()->save();
-        
+
     }
 
     /**

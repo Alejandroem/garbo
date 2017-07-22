@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 //Route::get('/peticion','HomeController@index')->name('peticion');
 
 Route::get('/peticion/numero/autocomplete','PeticionesController@numeroAutoComplete');
