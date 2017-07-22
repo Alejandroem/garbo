@@ -22,19 +22,27 @@ $(function()
 
 
 
-    $('#dataTablesPeticiones tbody').on( 'click', 'tr', function () {
-        console.log("click en"+$(this).data('id'));
-        $('#modal-'+$(this).data('id')).modal('toggle');
+    $('#dataTablesPeticiones tbody').on( 'click', 'td', function () {
+        console.log("click en"+$(this).parents('tr').data('id'));
+        if($(this).data('id')!=="actions"){
+            $('#modal-'+$(this).parents('tr').data('id')).modal('toggle');
+
+        }
     } );
 
     //    $(".continuar").on('click',function(){
     //        $('#modal-'+$(this).data('id')).modal('toggle');
     //    });
 
+    var table = $('#dataTablesPeticiones').DataTable({
+        responsive: true
+    });
+
     $(document).on('click', '.button-delete', function (e) {
         e.preventDefault();
         var id = $(this).data('id');
         var token = $(this).data("token");
+
         swal({
             title: '¿Está seguro que desea elminar la petición?',
             text: "No podrá deshacer los cambios",
@@ -52,7 +60,7 @@ $(function()
             )
 
             table
-                .row($(this).parents('tr'))
+                .row($("#tr-"+id))
                 .remove()
                 .draw();
 
@@ -129,9 +137,7 @@ $(function()
         });
     });
 
-    var table = $('#dataTablesPeticiones').DataTable({
-        responsive: true
-    });
+
 
     $(".datetimepicker").on('dp.change',function() {
         //console.log("bla");

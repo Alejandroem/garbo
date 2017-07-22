@@ -76,12 +76,12 @@
                             </tr>
                         </thead>
                         @foreach($peticiones as $peticion)
-                        <tr data-id="{{$peticion->id}}">
+                        <tr id="tr-{{$peticion->id}}" data-id="{{$peticion->id}}">
                             <td> {{$peticion->id}}</td>
                             <td> {{Carbon\Carbon::parse($peticion->fechaCreacion)->format('d/m/Y')}}</td>
                             <td> {{$peticion->tipo->nombre}}</td>
                             <td> {{$peticion->strEstado()}}</td>
-                            <td>
+                            <td data-id="actions">
                                 <a href="" class="button-delete btn btn-danger btn-xs" data-token="{{ csrf_token() }}" data-id="{{$peticion->id}}"><i class='glyphicon glyphicon-trash'></i></a>
                             </td>
                         </tr>
