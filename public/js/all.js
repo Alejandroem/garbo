@@ -18936,7 +18936,7 @@ $(function()
             )
 
             table
-                .row( $(this).parents('tr') )
+                .row($(this).parents('tr'))
                 .remove()
                 .draw();
 
@@ -18945,7 +18945,6 @@ $(function()
                 type: 'post',
                 data: {peticion:id, _method: 'delete', _token :token},
                 success: function (data) {
-                    console.log(data);
                     table.draw();
 
                 }         
@@ -18957,7 +18956,6 @@ $(function()
         var id = $(this).data('id');
         var token = $(this).data("token");
         var fecha = $("#modal-form-fecha-"+id).val();
-        alert(fecha);
         event.preventDefault();
         $.ajax({
 

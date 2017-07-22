@@ -52,7 +52,7 @@ $(function()
             )
 
             table
-                .row( $(this).parents('tr') )
+                .row($(this).parents('tr'))
                 .remove()
                 .draw();
 
@@ -61,7 +61,6 @@ $(function()
                 type: 'post',
                 data: {peticion:id, _method: 'delete', _token :token},
                 success: function (data) {
-                    console.log(data);
                     table.draw();
 
                 }         

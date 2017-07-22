@@ -155,7 +155,7 @@ class PeticionesController extends Controller
             'campo'=>'Fecha',
             'tipo'=>'datetime',
             'valorAnterior'=>$movimiento->Fecha,
-            'valorNuevo'=>$request->nuevafecha
+            'valorNuevo'=>str_replace('/','-',$request->nuevafecha)
         ]);
         session()->flash('message','Peticion creada con exito');
         session()->flash('creat','active');

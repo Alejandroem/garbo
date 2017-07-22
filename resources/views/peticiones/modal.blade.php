@@ -28,7 +28,7 @@ Launch demo modal
                                 <div  class='input-group date datetimepicker'>
                                     <input  id="modal-form-fecha-{{$peticion->id}}"
 
-                                           name="nuevafecha" type='text' class="form-control" value="{{Carbon\Carbon::parse($peticion->campos->first()->valorNuevo)->format('d/m/Y')}}"
+                                           name="modalnuevafecha" type='text' class="form-control" value="{{Carbon\Carbon::parse($peticion->campos->first()->valorNuevo)->format('d/m/Y')}}"
                                            @if($peticion->estado==1) 
                                     disabled
                                     @endif
