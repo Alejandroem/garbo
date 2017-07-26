@@ -23,4 +23,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/peticion/numero/autocomplete','PeticionesController@numeroAutoComplete');
 Route::post('/peticion/search/movimiento','PeticionesController@searchMovimiento');
 Route::get('/peticion/data/table','PeticionesController@dataTable');
+Route::get('/peticion/aprobar/{peticion}','PeticionesController@aprobar')->name('peticion.aprobar');;
+Route::get('/peticion/denegar/{peticion}','PeticionesController@denegar')->name('peticion.denegar');;
 Route::resource('/peticion','PeticionesController');
