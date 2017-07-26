@@ -24,13 +24,5 @@
         </div>
         <!-- /.panel -->
     </div>
-    <div class="col-lg-12 text-right">
-        <a class="btn btn-default" href="{{route('peticion.index',['usuario'=>$usuario,'empresa'=>$empresa])}}">Regresar</a>
-    </div>
-
 </div>
-
-
-
-
 @endsection
