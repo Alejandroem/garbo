@@ -12,6 +12,8 @@ use App\Models\MovimientoTipo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+use Alert;
+
 
 class PeticionesController extends Controller
 {
@@ -28,8 +30,8 @@ class PeticionesController extends Controller
         $peticiones = Peticiones::all();
         $tiposPeticiones = TipoPeticiones::whereIn('id',$peticiones->pluck('idTipoPeticion'))->get();
         return view('autorizar.index')->with(compact('peticiones','tiposPeticiones','usuario','empresa'));
-        
-        
+
+
         if($request->has('usuario')&&$request->has('empresa')){
             $usuario = $request->usuario;
             $empresa = $request->empresa;
@@ -169,7 +171,8 @@ class PeticionesController extends Controller
             'valorAnterior'=>$movimiento->Fecha,
             'valorNuevo'=>str_replace('/','-',$request->nuevafecha)
         ]);
-        session()->flash('message','Peticion creada con exito');
+        //session()->flash('message','Peticion creada con exito');
+        alert()->success('Peticion creada con exito','Exito');
         session()->flash('creat','active');
         return redirect()->route('peticion.create',
                                  ['usuario'=>$request->idUsuario,
@@ -251,5 +254,37 @@ class PeticionesController extends Controller
 
     }
 
+    public function aprobar(Request $request, Peticiones $peticion){
 
+        switch ($peticion->campos->first()->tabla)
+        {
+            case 'MOVIMIENTO MAESTRO':
+
+                MovimientoMaestro::where('Numero',floatval($peticion->Codigo))
+                    ->where('Empresa',$peticion->Empresa)
+                    ->where('Tipo',15)
+                    ->update(['Fecha' => Carbon::parse($peticion->campos->first()->valornuevo)->format('Y/m/d')]);
+                alert()->success('La petición ha sido aprobada','Exito' );
+                $peticion->estado = 1;
+                $peticion->idUsuarioAutorizador = $request->usuario;
+                $peticion->fechaAtencion = Carbon::now();
+                $peticion->save();
+
+                return back();
+                break;
+            default:
+                dd("error");
+                break;
+        }
+
+    }
+
+    public function denegar(Request $request,Peticiones $peticion){
+        $peticion->estado = 2;
+        $peticion->idUsuarioAutorizador = $request->usuario;
+        $peticion->fechaAtencion = Carbon::now();
+        $peticion->save();
+        alert()->error('La petición ha sido denegada', 'Exito');
+        return back();
+    }
 }
