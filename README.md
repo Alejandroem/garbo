@@ -28,8 +28,16 @@
     CACHE_DRIVER=file
     SESSION_DRIVER=file
     QUEUE_DRIVER=sync
+    
+    MAIL_DRIVER=smtp
+    MAIL_HOST=ip of the mail server
+    MAIL_PORT=port of the mail host
+    MAIL_USERNAME=username of the email server
+    MAIL_PASSWORD=password of the email server
+    MAIL_ENCRYPTION=null
     ```
 5. run `php artisan migrate install` to install migrations table.
 6. run `php artisan migrate` to create the tables in the migrations files.
 7. run `php artisan key:generate` this will add a new key to APP_KEY in the .env file
 8. If you deploy your app on a server visit http://yourserver/peticion?usuario=@usuario&empresa=@empresa
+8. Or visit http://yourserver/peticion?usuario=@usuario&empresa=@empresa&autorizar@true
