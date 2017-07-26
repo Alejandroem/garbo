@@ -20,7 +20,14 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     @include('peticiones.create')
-                    @include('peticiones.list')
+                    <div class="tab-pane fade
+                                @if($active = session('list'))
+                                active
+                                @endif
+                                " id="peticiones">
+                        <br>
+                        @include('peticiones.list')
+                    </div>
                 </div>
             </div>
             <!-- /.panel-body -->

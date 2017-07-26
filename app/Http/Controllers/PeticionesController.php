@@ -11,6 +11,8 @@ use App\Models\MovimientoTipo;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Mail\NotificacionPeticion;
+use Alert, Mail;
 
 
 class PeticionesController extends Controller
@@ -23,6 +25,17 @@ class PeticionesController extends Controller
     public function index(Request $request)
     {
         //
+        if($request->has('autorizar'))
+        {
+            if($request->autorizar=true){
+                $usuario = $request->usuario;
+                $empresa = $request->empresa;
+                $peticiones = Peticiones::all();
+                $tiposPeticiones = TipoPeticiones::whereIn('id',$peticiones->pluck('idTipoPeticion'))->get();
+                return view('autorizar.index')->with(compact('peticiones','tiposPeticiones','usuario','empresa'));
+            }
+        }
+
         if($request->has('usuario')&&$request->has('empresa')){
             $usuario = $request->usuario;
             $empresa = $request->empresa;
@@ -81,6 +94,11 @@ class PeticionesController extends Controller
     {
 
         $peticiones = Peticiones::all();
+
+
+        if($request->has('usuario')){
+            $peticiones = Peticiones::where('idUsuario',$request->usuario)->get();
+        }
 
         return response()->json($peticiones)
             ->withCallback($request->input('callback'));
@@ -157,7 +175,10 @@ class PeticionesController extends Controller
             'valorAnterior'=>$movimiento->Fecha,
             'valorNuevo'=>str_replace('/','-',$request->nuevafecha)
         ]);
-        session()->flash('message','Peticion creada con exito');
+
+        Mail::to("admin@admin.com")->send(new NotificacionPeticion($peticion,"Nueva peticion: ","Se ha creado una nueva petición"));
+
+        alert()->success('Peticion creada con exito','Exito');
         session()->flash('creat','active');
         return redirect()->route('peticion.create',
                                  ['usuario'=>$request->idUsuario,
@@ -237,5 +258,42 @@ class PeticionesController extends Controller
         $peticion->delete();
         return back();
 
+    }
+
+    public function aprobar(Request $request, Peticiones $peticion){
+
+        switch ($peticion->campos->first()->tabla)
+        {
+            case 'MOVIMIENTO MAESTRO':
+
+                MovimientoMaestro::where('Numero',floatval($peticion->Codigo))
+                    ->where('Empresa',$peticion->Empresa)
+                    ->where('Tipo',15)
+                    ->update(['Fecha' => Carbon::parse($peticion->campos->first()->valornuevo)->format('Y/m/d')]);
+                $peticion->estado = 1;
+                $peticion->idUsuarioAutorizador = $request->usuario;
+                $peticion->fechaAtencion = Carbon::now();
+                $peticion->save();
+                alert()->success('La petición ha sido aprobada','Exito' );
+                Mail::to("usuario@usuario.com")
+                    ->send(new NotificacionPeticion($peticion,"Peticion aprobada: ","Se ha aprobado la petición"));
+                return back();
+                break;
+            default:
+                dd("error");
+                break;
+        }
+
+    }
+
+    public function denegar(Request $request,Peticiones $peticion){
+        $peticion->estado = 2;
+        $peticion->idUsuarioAutorizador = $request->usuario;
+        $peticion->fechaAtencion = Carbon::now();
+        $peticion->save();
+        alert()->error('La petición ha sido denegada', 'Exito');
+        Mail::to("usuario@usuario.com")
+            ->send(new NotificacionPeticion($peticion,"Peticion denegada: ","Se ha denegado la petición"));
+        return back();
     }
 }

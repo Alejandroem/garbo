@@ -1,6 +1,7 @@
 $(function()
-  {/*
-            $( "#numero" ).autocomplete({
+  {
+    /*
+        $( "#numero" ).autocomplete({
                 source: function( request, response ) {
                     $.ajax( {
                         url: "/peticion/numero/autocomplete",
@@ -18,26 +19,25 @@ $(function()
                                         select: function( event, ui ) {
                 console.log( "Selected: " + ui.item.value + " aka " + ui.item.id );
             } 
-        });*/
+        });
+        */
 
 
-
-    $('#dataTablesPeticiones tbody').on( 'click', 'td', function () {
-        console.log("click en"+$(this).parents('tr').data('id'));
-        if($(this).data('id')!=="actions"){
-            $('#modal-'+$(this).parents('tr').data('id')).modal('toggle');
-
-        }
-    } );
-
-    //    $(".continuar").on('click',function(){
-    //        $('#modal-'+$(this).data('id')).modal('toggle');
-    //    });
-
+    //Data table initiallization
     var table = $('#dataTablesPeticiones').DataTable({
         responsive: true
     });
 
+
+    //Mostrar modal al dar click en row
+    $('#dataTablesPeticiones tbody').on( 'click', 'td', function () {
+        console.log("click en"+$(this).parents('tr').data('id'));
+        if($(this).data('id')!=="actions"){
+            $('#modal-'+$(this).parents('tr').data('id')).modal('toggle');
+        }
+    } );
+
+    //Icon delete action
     $(document).on('click', '.button-delete', function (e) {
         e.preventDefault();
         var id = $(this).data('id');
@@ -76,6 +76,7 @@ $(function()
         })
     });
 
+    //Submit modal form de row
     $('.modal-form').submit(function( event ) {
         var id = $(this).data('id');
         var token = $(this).data("token");
@@ -98,7 +99,7 @@ $(function()
 
     });
 
-
+    //Busqueda en pestaña create
     $('#search').submit(function( event ) {
         $("#error").hide();
         $("#opciones").hide();
@@ -138,22 +139,25 @@ $(function()
     });
 
 
-
+    //Redraw on datatable
     $(".datetimepicker").on('dp.change',function() {
         //console.log("bla");
         table.draw();
     } );
 
+    //Pendientes toggle rerdaw
     $("#pendientes").change(function() {
         console.log('Toggle: ' + $(this).prop('checked'));
         table.draw();
     })
 
+    //Selector on change redraw
     $("#tipos").on('change', function (e) {
         table.draw();
         //            alert($("#tipos").val());
     });
 
+    //Busqueda de data table
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
 
@@ -195,6 +199,7 @@ $(function()
             return retValue;
         }
     );
+
 
 });
 

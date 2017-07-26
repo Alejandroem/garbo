@@ -71,5 +71,8 @@
         <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
         @yield('scripts')
+
+        <!-- Include this after the sweet alert js file -->
+        @include('sweet::alert')
     </body>
 </html>
