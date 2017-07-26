@@ -23,6 +23,13 @@ class PeticionesController extends Controller
     public function index(Request $request)
     {
         //
+        $usuario = $request->usuario;
+        $empresa = $request->empresa;
+        $peticiones = Peticiones::all();
+        $tiposPeticiones = TipoPeticiones::whereIn('id',$peticiones->pluck('idTipoPeticion'))->get();
+        return view('autorizar.index')->with(compact('peticiones','tiposPeticiones','usuario','empresa'));
+        
+        
         if($request->has('usuario')&&$request->has('empresa')){
             $usuario = $request->usuario;
             $empresa = $request->empresa;
@@ -81,6 +88,11 @@ class PeticionesController extends Controller
     {
 
         $peticiones = Peticiones::all();
+
+
+        if($request->has('usuario')){
+            $peticiones = Peticiones::where('idUsuario',$request->usuario)->get();
+        }
 
         return response()->json($peticiones)
             ->withCallback($request->input('callback'));
@@ -238,4 +250,6 @@ class PeticionesController extends Controller
         return back();
 
     }
+
+
 }

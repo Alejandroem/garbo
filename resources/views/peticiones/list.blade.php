@@ -1,9 +1,4 @@
-<div class="tab-pane fade
-            @if($active = session('list'))
-            active
-            @endif
-            " id="peticiones">
-    <br>
+
 
 
     @if(count($peticiones)>0)
@@ -85,7 +80,7 @@
                                 <a href="" class="button-delete btn btn-danger btn-xs" data-token="{{ csrf_token() }}" data-id="{{$peticion->id}}"><i class='glyphicon glyphicon-trash'></i></a>
                             </td>
                         </tr>
-                        @include('peticiones.modal')
+                        @include('autorizar.modal')
                         @endforeach
 
                         <tbody>
@@ -108,9 +103,6 @@
         No se encontró ninguna peticion
     </div>
     @endif
-
-</div>
-
 
 
 
