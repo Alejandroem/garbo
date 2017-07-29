@@ -22,8 +22,8 @@
                 <div class="form-group">
                     <label>Bodega</label>
                     <select id="bodega" name="bodega" class="form-control">
-                        @foreach($bodegas as $bodega)
-                        <option>{{$bodega}}</option>
+                        @foreach($bodegas as $key=>$bodega)
+                        <option value="{{$key}}">{{$bodega}}</option>
                         @endforeach
                     </select>
                 </div>

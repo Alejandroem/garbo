@@ -8,6 +8,7 @@ use App\Models\CamposPeticion;
 use App\Models\Seguridad;
 use App\Models\MovimientoMaestro;
 use App\Models\MovimientoTipo;
+use App\Models\Bodega;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -115,15 +116,18 @@ class PeticionesController extends Controller
         //
         $empresa = $request->empresa;
         $usuario = $request->usuario;
-        $bodegas = Seguridad::where('Usuario',$request->usuario)
+        $bodegas_disp = Seguridad::where('Usuario',$request->usuario)
             ->where('Empresa',$empresa)
             ->where('Tipo',3)
             ->pluck('Llave');
-
-        for ($i = 0; $i < count($bodegas); $i++)
+        for ($i = 0; $i < count($bodegas_disp); $i++)
         {
-            $bodegas[$i] = substr($bodegas[$i],1);
+            $bodegas_disp[$i] = substr($bodegas_disp[$i],1);
         }
+        
+        $bodegas = Bodega::where('Empresa',$empresa)->whereIn('Codigo',$bodegas_disp)->pluck('Descripcion','Codigo');
+        
+
         $peticiones = Peticiones::where('idUsuario',$usuario)->get();
 
         $tiposPeticiones = TipoPeticiones::whereIn('id',$peticiones->pluck('idTipoPeticion'))->get();
