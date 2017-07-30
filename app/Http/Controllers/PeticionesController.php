@@ -124,9 +124,9 @@ class PeticionesController extends Controller
         {
             $bodegas_disp[$i] = substr($bodegas_disp[$i],1);
         }
-        
+
         $bodegas = Bodega::where('Empresa',$empresa)->whereIn('Codigo',$bodegas_disp)->pluck('Descripcion','Codigo');
-        
+
 
         $peticiones = Peticiones::where('idUsuario',$usuario)->get();
 
@@ -146,7 +146,6 @@ class PeticionesController extends Controller
     public function store(Request $request)
     {
         //
-
 
         $this->validate($request,[
             'nuevafecha'=>'required',

@@ -25,6 +25,7 @@ elixir(function(mix){
         "bootstrap-datetimepicker.js",
         "datatables.min.js",
         "sweetalert2.min.js",
+        "jquery.validate.min.js",
         "peticiones.js"
     ],"public/js/all.js");
 });

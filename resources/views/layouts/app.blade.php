@@ -64,7 +64,9 @@
         <script type="text/javascript">
             $(function () {
                 $('.datetimepicker').datetimepicker({
-                    format: 'DD/MM/YYYY'
+                    format: 'DD/MM/YYYY',
+                    maxDate : 'now'
+                    //                    useCurrent: false
                 });
             });
         </script>

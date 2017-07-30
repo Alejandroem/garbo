@@ -80,7 +80,7 @@
                                 <a href="" class="button-delete btn btn-danger btn-xs" data-token="{{ csrf_token() }}" data-id="{{$peticion->id}}"><i class='glyphicon glyphicon-trash'></i></a>
                             </td>
                         </tr>
-                        @include('autorizar.modal')
+                        @include('peticiones.modal')
                         @endforeach
 
                         <tbody>

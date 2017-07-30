@@ -58,60 +58,83 @@
         </div>
     </div>
 
-    <div id="data" class="well" hidden>
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <label>Creado por: </label> <label id="usuario"></label>
-            </div>
-            <div class="col-md-12">
-                <label>Numero de entrada: </label>  <label id="numeroentrada"></label>
-            </div>
-            <div class="col-md-12">
-                <label>Tipo de documento: </label>  <label id="tipoentrada"></label>
-            </div>
-            <div class="col-md-12">
-                <label>Fecha: </label> <label id="fechaentrada"></label>
-            </div>
-            <div class="col-md-12">
-                <label>Descripcion: </label>  <label id="descripcion"></label>
-            </div>
+    <div id="data" class="" hidden>
+        <div class="text-right">
+            <label>Creado por: </label>&nbsp;<span id="usuario"></span>
         </div>
-    </div>
+        <div class="panel panel-default">
 
+            <div class=" panel-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Numero de entrada: </label>
+                    </div>
+                    <div class="col-md-10">
+                        <span id="numeroentrada"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-2">
+                        <label>Tipo de documento: </label> 
+                    </div>
+                    <div class="col-md-10">
+                        <span id="tipoentrada"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-2">
+                        <label>Fecha: </label> 
+                    </div>
+                    <div class="col-md-10">
+                        <span id="fechaentrada"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-2">
+                        <label>Descripcion: </label>  
+                    </div>
+                    <div class="col-md-10">
+                        <span id="descripcion"></span>
+                    </div>
+                </div>
+                <br>
+                <div id="opciones" class="panel panel-default" hidden>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#opcionesmodificacion">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        Opciones de modificación
+                    </a>
 
-    <div id="opciones" class="panel panel-default" hidden>
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#opcionesmodificacion">Opciones de modificación</a>
-            </h4>
-        </div>
-        <div id="opcionesmodificacion" class="panel-collapse collapse">
-            <div class="panel-body">
-                <form method="post" action="{{route('peticion.store')}}">
-                    {{csrf_field()}}
-                    <div class="row">
-                        <input type='text' id="codigo" name="codigo"  hidden>
-                        <input type='text' id="idUsuario" name="idUsuario" value="{{$usuario}}"  hidden>
-                        <input type='text' id="empresa" name="empresa"  value="{{$empresa}}" hidden>
-                        <div class="col-md-8 col-md-offset-2">
-                            <div class="form-group">
-                                <label>Fecha: </label>
-                                <div class='input-group date datetimepicker'>
-                                    <input name="nuevafecha" id="nuevafecha" type='text' class="form-control" />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
+                    <div id="opcionesmodificacion" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <form id="createform" method="post" action="{{route('peticion.store')}}">
+                                {{csrf_field()}}
+                                <div class="row">
+                                    <input type='text' id="codigo" name="codigo"  hidden>
+                                    <input type='text' id="idUsuario" name="idUsuario" value="{{$usuario}}"  hidden>
+                                    <input type='text' id="empresa" name="empresa"  value="{{$empresa}}" hidden>
+                                    <div class="col-md-8 col-md-offset-2">
+                                        <div class="form-group">
+                                            <label>Nueva fecha de documento: </label>
+                                            <div class='input-group date datetimepicker'>
+                                                <input name="nuevafecha" id="nuevafecha" type='text' class="form-control" placeholder="Fecha en formato dd/mm/yyyy" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-md-offset-2 text-right">
+                                        <button type="submit" class="btn btn-primary"> Solicitar cambio</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-8 col-md-offset-2 text-right">
-                            <button type="submit" class="btn btn-primary"> Solicitar cambio</button>
+                            </form>
+
+
                         </div>
                     </div>
-                </form>
-
+                </div>
 
             </div>
         </div>
     </div>
+
+
+
 </div>

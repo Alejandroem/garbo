@@ -81,9 +81,9 @@ $(function()
         var id = $(this).data('id');
         var token = $(this).data("token");
         var fecha = $("#modal-form-fecha-"+id).val();
+
         event.preventDefault();
         $.ajax({
-
             url: '/peticion/'+id,
             type: 'post',
             data: {peticion:id, _method: 'put', _token :token, nuevafecha:fecha},
@@ -156,6 +156,17 @@ $(function()
         table.draw();
         //            alert($("#tipos").val());
     });
+
+    $('#createform').validate({
+        rules:{
+            nuevafecha: {
+                required: true,
+            }
+        },
+        messages:{
+            nuevafecha:"Por favor seleccione una fecha valida",
+        }
+    }); 
 
     //Busqueda de data table
     $.fn.dataTable.ext.search.push(
