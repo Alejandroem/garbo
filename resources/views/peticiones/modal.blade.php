@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
 <!--
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-{{$peticion->id}}">
 Launch demo modal
 </button>
 -->
@@ -10,7 +10,7 @@ Launch demo modal
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Peticion No: {{$peticion->id}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Peticion No: {{$peticion->Codigo}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -27,7 +27,6 @@ Launch demo modal
                             <div class="col-md-6">
                                 <div  class='input-group date datetimepicker'>
                                     <input  id="modal-form-fecha-{{$peticion->id}}"
-
                                            name="modalnuevafecha" type='text' class="form-control" value="{{Carbon\Carbon::parse($peticion->campos->first()->valorNuevo)->format('d/m/Y')}}"
                                            @if($peticion->estado==1) 
                                     disabled

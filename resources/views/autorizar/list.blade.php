@@ -69,7 +69,7 @@
                     </thead>
                     @foreach($peticiones as $peticion)
                     <tr id="tr-{{$peticion->id}}" data-id="{{$peticion->id}}">
-                        <td> {{$peticion->id}}</td>
+                        <td> {{$peticion->Codigo}}</td>
                         <td> {{Carbon\Carbon::parse($peticion->fechaCreacion)->format('d/m/Y')}}</td>
                         <td> {{$peticion->tipo->nombre}}</td>
                         <td> {{$peticion->strEstado()}}</td>

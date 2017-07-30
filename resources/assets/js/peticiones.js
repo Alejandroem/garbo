@@ -29,13 +29,17 @@ $(function()
     });
 
 
+
     //Mostrar modal al dar click en row
     $('#dataTablesPeticiones tbody').on( 'click', 'td', function () {
-        console.log("click en"+$(this).parents('tr').data('id'));
-        if($(this).data('id')!=="actions"){
-            $('#modal-'+$(this).parents('tr').data('id')).modal('toggle');
+        if($(this).parents('tr').data('id')!=undefined){
+            console.log("click en"+$(this).parents('tr').data('id'));
+            if($(this).data('id')!=="actions"){
+                $('#modal-'+$(this).parents('tr').data('id')).modal('toggle');
+            }
         }
-    } );
+    });
+
 
     //Icon delete action
     $(document).on('click', '.button-delete', function (e) {
@@ -158,6 +162,16 @@ $(function()
     });
 
     $('#createform').validate({
+        rules:{
+            nuevafecha: {
+                required: true,
+            }
+        },
+        messages:{
+            nuevafecha:"Por favor seleccione una fecha valida",
+        }
+    }); 
+    $('#modal-form').validate({
         rules:{
             nuevafecha: {
                 required: true,
