@@ -19049,26 +19049,26 @@ $(function()
         //            alert($("#tipos").val());
     });
 
-    $('#createform').validate({
-        rules:{
-            nuevafecha: {
-                required: true,
-            }
-        },
-        messages:{
-            nuevafecha:"Por favor seleccione una fecha valida",
-        }
-    }); 
-    $('#modal-form').validate({
-        rules:{
-            nuevafecha: {
-                required: true,
-            }
-        },
-        messages:{
-            nuevafecha:"Por favor seleccione una fecha valida",
-        }
-    }); 
+//    $('#createform').validate({
+//        rules:{
+//            nuevafecha: {
+//                required: true,
+//            }
+//        },
+//        messages:{
+//            nuevafecha:"Por favor seleccione una fecha valida",
+//        }
+//    }); 
+//    $('#modal-form').validate({
+//        rules:{
+//            nuevafecha: {
+//                required: true,
+//            }
+//        },
+//        messages:{
+//            nuevafecha:"Por favor seleccione una fecha valida",
+//        }
+//    }); 
 
     //Busqueda de data table
     $.fn.dataTable.ext.search.push(

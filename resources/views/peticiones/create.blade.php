@@ -11,7 +11,7 @@
     </div>
     @endif
 
-    <br>
+    <br>    
 
 
     <form id="search" role="form">
@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 <br>
-                <div id="opciones" class="panel panel-default" hidden>
+                <div id="opciones" class="panel panel-default">
                     <a data-toggle="collapse" data-parent="#accordion" href="#opcionesmodificacion">
                         <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         Opciones de modificación
@@ -112,13 +112,15 @@
                                     <div class="col-md-8 col-md-offset-2">
                                         <div class="form-group">
                                             <label>Nueva fecha de documento: </label>
-                                            <div class='input-group date datetimepicker'>
-                                                <input name="nuevafecha" id="nuevafecha" type='text' class="form-control" placeholder="Fecha en formato dd/mm/yyyy" />
+                                            <div class='input-group date datePicker'>
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
+                                                <input name="nuevafecha" id="nuevafecha" type='text' class="form-control" placeholder="Fecha en formato dd/mm/yyyy"/>
+
                                             </div>
                                         </div>
+
                                     </div>
                                     <div class="col-md-8 col-md-offset-2 text-right">
                                         <button type="submit" class="btn btn-primary"> Solicitar cambio</button>
