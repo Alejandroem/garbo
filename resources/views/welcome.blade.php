@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('page-title','Bienvenido!!')
+@section('page-title','Petición de cambio - Modulo de Inventarios')
 
 @section('content')
 
 
 <div class="row">
-  
+
     <div class="clearfix"></div>
     <div class="col-lg-3 col-md-6">
         <div class="panel panel-green">
@@ -23,7 +23,7 @@
             </div>
             <a href="{{route('peticion.create',['usuario'=>$usuario,'empresa'=>$empresa])}}">
                 <div class="panel-footer">
-                    <span class="pull-left">Ver</span>
+                    <span class="pull-left">Cambio de fecha</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <div class="col-lg-3 col-md-6">
+   <!-- <div class="col-lg-3 col-md-6">
         <div class="panel panel-green">
             <div class="panel-heading">
                 <div class="row">
@@ -52,7 +52,9 @@
                 </div>
             </a>
         </div>
-    </div>
+    </div>-->
+    
+    
 </div>
 
 
