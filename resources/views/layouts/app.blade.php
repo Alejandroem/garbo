@@ -122,6 +122,11 @@
                     .on('changeDate keyup', function(e) {
                     var submit = $(this).closest('form').find(':submit');
 
+                    if(submit.length==0)
+                    {
+                        submit = $(this).parents('.modal-content').find(':submit');
+                        console.log(submit.length);
+                    }
 
                     var from = $(this).find(':input').val().split("/");
                     var f = new Date(from[2], from[1] - 1, from[0]);

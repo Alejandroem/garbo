@@ -25,16 +25,17 @@ Launch demo modal
                                 <label>Nueva fecha: </label>
                             </div>
                             <div class="col-md-6">
-                                <div  class='input-group date datetimepicker'>
+                                <div  class='input-group date datePicker'>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
                                     <input  id="modal-form-fecha-{{$peticion->id}}"
                                            name="modalnuevafecha" type='text' class="form-control" value="{{Carbon\Carbon::parse($peticion->campos->first()->valorNuevo)->format('d/m/Y')}}"
                                            @if($peticion->estado==1) 
                                     disabled
                                     @endif
                                     />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
+
                                 </div>
                             </div>
                         </div>
@@ -42,7 +43,7 @@ Launch demo modal
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button class="continuar btn btn-primary" type="submit" data-dismiss="modal">Continuar</button>
+                    <button type="submit" class="continuar btn btn-primary" data-dismiss="modal">Continuar</button>
                 </div>
             </form>
         </div>
