@@ -1,9 +1,9 @@
 <!-- Button trigger modal -->
-<!--
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-Launch demo modal
-</button>
--->
+
+<a style="color: inherit;text-decoration: none;" data-toggle="modal" data-target="#modal-{{$peticion->id}}">
+<i class="material-icons">visibility</i>
+</a>
+
 
 <!-- Modal -->
 <div class="modal fade" id="modal-{{$peticion->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

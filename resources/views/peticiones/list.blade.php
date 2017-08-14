@@ -71,19 +71,21 @@
                         </tr>
                     </thead>
                     @foreach($peticiones as $peticion)
-                    <tr>
+                    <tr id="tr-{{$peticion->id}}" data-id="{{$peticion->id}}"> 
                         <td> {{$peticion->Codigo}}</td>
                         <td> {{Carbon\Carbon::parse($peticion->fechaCreacion)->format('d/m/Y')}}</td>
                         <td> {{$peticion->tipo->nombre}}</td>
                         <td> {{$peticion->strEstado()}}</td>
                         <td data-id="actions">
-                            <a href="" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-{{$peticion->id}}">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            @if($peticion->estado==0)
+                            <a href="" style="color: inherit;text-decoration: none;"  data-toggle="modal" data-target="#modal-{{$peticion->id}}">
+                                <i class="material-icons">border_color</i>
                             </a>
 
-                            <a href="" class="button-delete btn btn-danger btn-xs" data-token="{{ csrf_token() }}" data-id="{{$peticion->id}}">
-                                <i class='glyphicon glyphicon-trash'></i>
+                            <a href="" style="color: inherit;text-decoration: none;" class="button-delete" data-token="{{ csrf_token() }}" data-id="{{$peticion->id}}">
+                                <i class="material-icons">delete</i>
                             </a>
+                            @endif
                         </td>
                     </tr>
                     @include('peticiones.modal')

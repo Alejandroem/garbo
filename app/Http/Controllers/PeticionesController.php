@@ -272,7 +272,7 @@ class PeticionesController extends Controller
                 MovimientoMaestro::where('Numero',floatval($peticion->Codigo))
                     ->where('Empresa',$peticion->Empresa)
                     ->where('Tipo',15)
-                    ->update(['Fecha' => Carbon::parse($peticion->campos->first()->valornuevo)->format('Y/m/d')]);
+                    ->update(['Fecha' => Carbon::parse($peticion->campos->first()->valorNuevo)->format('Y/m/d')]);
                 $peticion->estado = 1;
                 $peticion->idUsuarioAutorizador = $request->usuario;
                 $peticion->fechaAtencion = Carbon::now();

@@ -74,16 +74,16 @@
                         <td> {{$peticion->tipo->nombre}}</td>
                         <td> {{$peticion->strEstado()}}</td>
                         <td> {{$peticion->idUsuario}}</td>
-                        <td>
-                            @if($peticion->estado==2)
+                        <td data-id="actions" class="text-center">
+                            @if($peticion->estado==0)
+                            @include('autorizar.modal')
+                            @elseif($peticion->estado==2)
                             <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
                             @elseif($peticion->estado==1)
                             <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                             @endif
-
                         </td>
                     </tr>
-                    @include('autorizar.modal')
                     @endforeach
 
                     <tbody>

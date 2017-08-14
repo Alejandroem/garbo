@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
-@section('page-title','Entrada de inventario de bodega')
-
+@section('page-title')
+<div class="col-lg-10">
+    <h1 class="page-header">Entrada de inventario de bodega</h1>
+</div>
+@endsection
 @section('content')
 
 <div class="row">
@@ -11,7 +14,7 @@
             <div class="panel-body">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs">
-                    <li><a href="#peticiones" data-toggle="tab">Peticiones de cambio</a>
+                    <li class="active"><a href="#peticiones" data-toggle="tab">Peticiones de cambio</a>
                     </li>
                 </ul>
 

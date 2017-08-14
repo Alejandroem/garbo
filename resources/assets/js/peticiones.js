@@ -1,3 +1,4 @@
+var table =null;
 $(function()
   {
     /*
@@ -24,7 +25,7 @@ $(function()
 
 
     //Data table initiallization
-    var table = $('#dataTablesPeticiones').DataTable({
+    table = $('#dataTablesPeticiones').DataTable({
         responsive: true
     });
 
@@ -62,7 +63,7 @@ $(function()
                 'Su peticion ha sido eliminada.',
                 'success'
             )
-
+            console.log($("#tr-"+id));
             table
                 .row($("#tr-"+id))
                 .remove()
@@ -161,26 +162,26 @@ $(function()
         //            alert($("#tipos").val());
     });
 
-//    $('#createform').validate({
-//        rules:{
-//            nuevafecha: {
-//                required: true,
-//            }
-//        },
-//        messages:{
-//            nuevafecha:"Por favor seleccione una fecha valida",
-//        }
-//    }); 
-//    $('#modal-form').validate({
-//        rules:{
-//            nuevafecha: {
-//                required: true,
-//            }
-//        },
-//        messages:{
-//            nuevafecha:"Por favor seleccione una fecha valida",
-//        }
-//    }); 
+    //    $('#createform').validate({
+    //        rules:{
+    //            nuevafecha: {
+    //                required: true,
+    //            }
+    //        },
+    //        messages:{
+    //            nuevafecha:"Por favor seleccione una fecha valida",
+    //        }
+    //    }); 
+    //    $('#modal-form').validate({
+    //        rules:{
+    //            nuevafecha: {
+    //                required: true,
+    //            }
+    //        },
+    //        messages:{
+    //            nuevafecha:"Por favor seleccione una fecha valida",
+    //        }
+    //    }); 
 
     //Busqueda de data table
     $.fn.dataTable.ext.search.push(

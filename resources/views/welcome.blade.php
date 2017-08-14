@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
-@section('page-title','Petición de cambio - Modulo de Inventarios')
+@section('page-title')
+<div class="col-lg-10">
+    <h1 class="page-header">Petición de cambio - Modulo de Inventarios</h1>
+</div>
 
 @section('content')
 

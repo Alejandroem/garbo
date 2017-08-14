@@ -18,15 +18,16 @@
         <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
-
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     </head>
     <body>
 
 
         <div id="wrapper">
-
+            {{--
             <!-- Navigation -->
+
             <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -39,17 +40,18 @@
                 </div>
                 <!-- /.navbar-header -->
 
-                {{--@include('partials.sidebar')--}}
-                {{--@include('partials.rightnav')--}}
+                @include('partials.sidebar')
+                @include('partials.rightnav')
 
             </nav>
+            --}}
         </div>
         <!-- Page Content -->
         <div id="<!--page--->wrapper">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1">
-                        <h1 class="page-header">@yield('page-title')</h1>
+                        @yield('page-title')
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="col-lg-10 col-lg-offset-1">

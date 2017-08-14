@@ -81,7 +81,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-md-2">
-                        <label>Fecha: </label> 
+                        <label>Fecha de Documento: </label> 
                     </div>
                     <div class="col-md-10">
                         <span id="fechaentrada"></span>
